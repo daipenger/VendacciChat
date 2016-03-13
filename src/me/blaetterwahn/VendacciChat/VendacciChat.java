@@ -38,7 +38,7 @@ public final class VendacciChat extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		final IPermissionsPlugin permissions;
-		if (checkForPlugin("PermissionsEx")) {
+		if (checkForPlugin("PermissionsEx", "ru.tehkode.permissions.bukkit.PermissionsEx")) {
 			permissions = new PermissionsExPlugin();
 		} else {
 			permissions = new NoPlugin();
@@ -48,9 +48,20 @@ public final class VendacciChat extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new ChatTransformer(permissions), this);
 	}
 
-	private boolean checkForPlugin(String name) {
+	/**
+	 * Checks if a certain JavaPlugin is available and enabled by bukkit
+	 * 
+	 * @param name
+	 *            JavaPlugin name
+	 * @param namespace
+	 *            The whole main namespace of the JavaPlugin (Using
+	 *            {@link Class} would crash if the plugin is not installed due
+	 *            to linking of the class at runtime)
+	 * @return
+	 */
+	private boolean checkForPlugin(String name, String namespace) {
 		Plugin plugin = getServer().getPluginManager().getPlugin(name);
-		return plugin != null && plugin.isEnabled();
+		return plugin != null && plugin.isEnabled() && plugin.getClass().getName().equals(namespace);
 	}
 
 }
