@@ -1,0 +1,4 @@
+name: VendacciChat
+main: me.blaetterwahn.VendacciChat.VendacciChat
+version: 1.0
+softdepend: [PermissionsEx]
